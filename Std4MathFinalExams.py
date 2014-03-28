@@ -46,22 +46,22 @@ def validateIntDivAnswer(a,b, quo, rem):
 
 def validateFloatAnswer(a,b,op, answer):
 	print "Solve: "
-	print "%9.3f" % a
-	print op, "%7.3f" % b
+	print "%10.4f" % a
+	print op, "%7.4f" % b
 	print "-"*15
 	userAnswer = float(raw_input())
 	if userAnswer == answer:
 		print "Great work"
 	else:
-		print "Incorrect. Correct answer is: %7.3f" % answer
+		print "Incorrect. Correct answer is: %7.4f" % answer
 
 	valid = validString[userAnswer == answer]
-	return ["%9.3f" % a,op,"%7.3f" % b,answer, userAnswer, valid]
+	return ["%9.4f" % a,op,"%7.4f" % b,answer, userAnswer, valid]
 
 def validateFloatDivAnswer(a,b, quo, rem):
 	print "Solve: "
-	print "%9.3f" % a
-	print "/", "%7.3f" % b
+	print "%10.4f" % a
+	print "/", "%7.4f" % b
 	print "-"*10
 
 	userQuo = int(raw_input("Quotient ?:"))
@@ -89,14 +89,14 @@ def generateIntSub():
 	return validateIntAnswer(a,b,'-',answer)
 
 def generateIntMult():
-	a = randint(100,9999)
-	b = randint(100,999)
+	a = randint(10,1000)
+	b = randint(10,100)
 	answer = a * b
 	return validateIntAnswer(a,b,'*',answer)
 
 def generateIntDiv():
-	a = randint(100,9999)
-	b = randint(100,9999)
+	a = randint(10,999)
+	b = randint(3,99)
 
 	if a < b:
 		temp = a
@@ -111,14 +111,14 @@ def generateFloat(min=10.0, max=999.0, multiplier = 1000):
 	return ceil(uniform(min,max)*multiplier)/multiplier
 
 def generateFloatAdd():
-	a = generateFloat(10.0,999.0)
-	b = generateFloat(10.0,999.0)
+	a = generateFloat(10.0,999.0,10000)
+	b = generateFloat(10.0,999.0,10000)
 	answer = a + b
 	return validateFloatAnswer(a,b,'+',answer)
 
 def generateFloatSub():
-	a = generateFloat()
-	b = generateFloat(10.0,999.0)
+	a = generateFloat(10.0,999.0,1000)
+	b = generateFloat(10.0,999.0,1000)
 	answer = a - b
 	return validateFloatAnswer(a,b,'-',answer)
 
@@ -143,7 +143,7 @@ def generateFloatDiv():
 
 
 options = [generateIntAdd, generateIntSub, generateIntMult, generateIntDiv,
-			generateFloatAdd, generateFloatSub, generateFloatMult, generateFloatDiv]
+			generateFloatAdd, generateFloatSub]
 
 numOfProblems = 10
 
@@ -157,6 +157,6 @@ for i in range(1,numOfProblems):
 	data.insert(4,"Answer Given:")
 	data.insert(3,"Answer Expected:")
 	data.insert(0,strftime("%Y-%m-%d", gmtime()))
-	data.insert(0,strftime("%Y-%m-%d", gmtime()))
+	data.insert(0,strftime("%H:%M:%S", gmtime()))
 	data.insert(0,i)
 	writeSumToFile(data)
